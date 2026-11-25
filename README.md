@@ -1,12 +1,17 @@
 # Projets de finance quantitative
 
-Quatre projets construits pas à pas, chacun testé et documenté.
+Quatre projets construits pas à pas en Python, chacun testé et documenté. Le fil conducteur : **ne jamais croire un résultat sans l'avoir vérifié**.
 
-| # | Projet | Statut |
-|---|---|---|
-| 1 | [Option pricer : Black-Scholes + Monte Carlo](option-pricer/) | ✅ terminé, 40 tests |
-| 2 | [Backtesting engine](backtester/) | ✅ terminé, 14 tests |
-| 3 | Modèle de risque (VaR, Expected Shortfall) | à venir |
-| 4 | Stratégie robuste (walk-forward, hors échantillon) | à venir |
+| # | Projet | Ce qu'il montre | Tests |
+|---|---|---|---|
+| 1 | [Option pricer](option-pricer/) | Black-Scholes, grecques, volatilité implicite ; Monte Carlo avec réduction de variance (variance divisée par 24), options asiatiques | 40 |
+| 2 | [Backtesting engine](backtester/) | Moteur sans biais d'anticipation, frais, Sharpe, drawdown ; démonstration du surapprentissage | 14 |
+| 3 | [Modèle de risque](risk-model/) | VaR et Expected Shortfall par 4 méthodes, backtest de Kupiec, Christoffersen et feux de Bâle, contributions au risque | 19 |
+| 4 | [Stratégie robuste](strategy/) | Walk-forward, sensibilité aux paramètres, bootstrap, Deflated Sharpe Ratio | 11 |
 
-Chaque dossier contient son propre README (méthode, résultats, limites) et ses tests (`python -m pytest`).
+Données : prix ajustés quotidiens SPY, TLT et GLD de 2005 à 2024 (Yahoo Finance), enregistrés dans `backtester/data/` pour des résultats reproductibles.
+
+```bash
+pip install numpy scipy pandas matplotlib yfinance pytest
+cd option-pricer && python -m pytest    # idem dans chaque dossier
+```
