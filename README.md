@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📊 Projets de finance quantitative
+# Projets de finance quantitative
 
 **Quatre projets en Python, construits pas à pas, testés et documentés.**
 
