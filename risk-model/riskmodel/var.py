@@ -60,7 +60,7 @@ def rolling_var(returns: pd.Series, method: str, window: int = 250, alpha: float
     jusqu'à t - 1 seulement (comme un gestionnaire de risque le ferait le
     matin, avant l'ouverture).
 
-    method : "historical", "normal", "ewma" ou "fhs".
+    method : "historical", "normal", "ewma", "fhs" ou "garch_t".
 
     fhs (simulation historique filtrée) : on divise chaque rendement passé par
     la volatilité EWMA de son jour (rendement « standardisé »), on prend le
@@ -84,8 +84,11 @@ def rolling_var(returns: pd.Series, method: str, window: int = 250, alpha: float
         sigma = ewma_volatility(returns, lam)
         z = (returns / sigma).shift(1)  # rendements standardisés, jusqu'à t - 1
         out = -z.rolling(fhs_window).quantile(alpha, interpolation="linear") * sigma
+    elif method == "garch_t":
+        from .garch import garch_var_forecast
+        out = garch_var_forecast(returns, alpha)
     else:
-        raise ValueError("method : 'historical', 'normal', 'ewma' ou 'fhs'")
+        raise ValueError("method : 'historical', 'normal', 'ewma', 'fhs' ou 'garch_t'")
     return out.rename(method)
 
 

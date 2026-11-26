@@ -9,7 +9,7 @@ from riskmodel.var import (
     historical_es, historical_var, normal_es, normal_var, rolling_var, scale_to_horizon,
 )
 
-METHODS = ["historical", "normal", "ewma", "fhs"]
+METHODS = ["historical", "normal", "ewma", "fhs", "garch_t"]
 
 
 def normal_returns(n=4_000, sigma=0.01, seed=0):

@@ -22,7 +22,7 @@ from riskmodel.var import historical_es, historical_var, normal_es, normal_var, 
 
 WEIGHTS = {"SPY": 0.6, "TLT": 0.3, "GLD": 0.1}
 LABELS = {"historical": "Historique 250 j", "normal": "Normale 250 j",
-          "ewma": "Normale EWMA", "fhs": "Historique filtrée"}
+          "ewma": "Normale EWMA", "fhs": "Historique filtrée", "garch_t": "GARCH(1,1) Student"}
 
 
 def main():
