@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.egg-info/
+.env
+# Fichiers téléchargés par scripts/download_data.py (droits d'auteur, licence de recherche)
+data/reports/*.pdf
+data/lexicon/*.csv
+# Caches et sorties générées
+data/cache/
+data/llm_cache/
+outputs/

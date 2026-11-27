@@ -2,12 +2,12 @@
 
 # Projets de finance quantitative
 
-**Cinq projets en Python, du pricing au risque de marché et de crédit, testés et documentés.**
+**Six projets en Python, du pricing au risque de marché, de crédit et de fraude comptable, testés et documentés.**
 
 Fil conducteur : *ne jamais croire un résultat sans l'avoir vérifié.*
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-110%20réussis-2ea44f)
+![Tests](https://img.shields.io/badge/tests-134%20réussis-2ea44f)
 ![Données](https://img.shields.io/badge/données-marchés%202005--2024%20·%2030%20000%20crédits-555)
 
 </div>
@@ -23,6 +23,7 @@ Fil conducteur : *ne jamais croire un résultat sans l'avoir vérifié.*
 | 3 | [**Risque de marché**](risk-model/) | VaR et ES par 5 méthodes (dont GARCH), backtest réglementaire, stress tests, VaR stressée et capital Bâle, valeurs extrêmes, [rapport de validation](risk-model/VALIDATION.md) | Pire stress : **2022** (−25 %), pas 2008 ; la loi normale sous-estime l'ES de **35 %** | 33 |
 | 4 | [**Stratégie robuste**](strategy/) | Walk-forward, plateau de paramètres, bootstrap, Deflated Sharpe Ratio | La tendance ne résiste pas aux tests ; la diversification avec ciblage de volatilité, si | 11 |
 | 5 | [**Risque de crédit**](credit-risk/) | Grille de score (WoE, IV, logistique), échelle de notation, perte attendue, capital Bâle IRB, VaR crédit Monte Carlo | Gini **0,53** ; perte prévue 13,8 % contre 14,4 % observée ; 7 classes validées sur le test | 12 |
+| 6 | [**Signaux d'alerte comptables (Wirecard)**](accounting-red-flags/) | M-Score de Beneish, Z d'Altman, accruals, analyse de texte (Loughran-McDonald), mode Claude avec citations vérifiées | Le M-Score **ne détecte pas** Wirecard ; le délai d'encaissement (≈ 200 jours) et l'enquête de Singapour (rapport 2018, p. 97), si | 24 |
 
 ---
 
@@ -58,6 +59,12 @@ Tendance, ciblage de volatilité et diversification, démontés ingrédient par 
 
 30 000 cartes de crédit réelles. Grille de score bancaire (Weight of Evidence, régression logistique, points), sans utiliser le sexe, la situation familiale ni l'âge ; échelle de 7 classes calibrée et validée sur des clients jamais vus ; perte attendue, capital Bâle IRB et VaR crédit à 99,9 % par Monte Carlo. Un gradient boosting sert de modèle challenger. → [Détails](credit-risk/)
 
+### 6. Signaux d'alerte comptables : le cas Wirecard
+
+<img src="accounting-red-flags/figures/synthese.png" alt="Wirecard contre Adyen" width="700">
+
+Ratios de détection de fraude et de détresse (Beneish, Altman, Sloan) et analyse du texte des rapports de gestion de Wirecard (2014-2018) et d'Adyen, avec des données saisies et sourcées page par page. Résultat : les scores classiques ne voient rien, car la trésorerie elle-même était fictive ; des signaux plus spécifiques (créances à 200 jours, endettement malgré une trésorerie abondante, phrases nouvelles sur l'enquête de Singapour) s'allument. Un mode Claude facultatif extrait des signaux textuels dont chaque citation est vérifiée mot pour mot dans le rapport. → [Détails](accounting-red-flags/)
+
 ---
 
 ## Lancer les projets
@@ -65,12 +72,12 @@ Tendance, ciblage de volatilité et diversification, démontés ingrédient par 
 ```bash
 git clone https://github.com/simonkirch21/quant-projects.git
 cd quant-projects
-pip install numpy scipy pandas matplotlib yfinance scikit-learn pytest
+pip install numpy scipy pandas matplotlib yfinance scikit-learn pdfplumber plotly requests anthropic pytest
 
 cd option-pricer && python -m pytest && python scripts/demo.py
 ```
 
-Même chose dans chaque dossier : `python -m pytest` lance les tests, `python scripts/demo.py` régénère les figures et les tableaux du README.
+Même chose dans chaque dossier : `python -m pytest` lance les tests, `python scripts/demo.py` régénère les figures et les tableaux du README (pour `accounting-red-flags`, voir son README).
 
 Données : prix ajustés quotidiens de SPY, TLT et GLD de 2005 à 2024 (Yahoo Finance), enregistrés dans `backtester/data/`, et 30 000 crédits à la consommation (UCI) dans `credit-risk/data/`, pour des résultats reproductibles.
 

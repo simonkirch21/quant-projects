@@ -1,0 +1,7 @@
+pandas
+numpy
+pdfplumber
+plotly
+requests
+anthropic
+pytest
